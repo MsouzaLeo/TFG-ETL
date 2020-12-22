@@ -46,12 +46,13 @@ df['tempo_confeccao_laudo'] = df['data_expedicao_laudo'] - df['data_distribuicao
 df['tempo_confeccao_laudo'].fillna('-1 day', inplace=True)
 
 
-#Tratando os valores nulos em masp
-df['masp_perito'].fillna('devolvida', inplace=True)
+#Tratando os valores nulos em masp e nmr_procedimento removendo as requisições que foram devolvidas
+df = df.dropna(subset=['masp_perito', 'nmr_procedimento'])
 
 
 #Tratando os valores nulos em nmr_procedimento
-df['nmr_procedimento'].fillna('devolvida', inplace=True)
+#df['nmr_procedimento'].fillna('devolvida', inplace=True)
+
 
 
 #Criando a conexao ao Banco
