@@ -43,16 +43,29 @@ df['data_expedicao_laudo'] = pd.to_datetime(df['data_expedicao_laudo'].astype('d
 
 #Adicionando o atributo calculado "tempo_confeccao_laudo" ao DataFrame
 df['tempo_confeccao_laudo'] = df['data_expedicao_laudo'] - df['data_distribuicao_requisicao']
-df['tempo_confeccao_laudo'].fillna('-1 day', inplace=True)
+#Pegando Apenas a parte inteira de dias do tempo de confeccao
+df['tempo_confeccao_laudo'] = df['tempo_confeccao_laudo'].dt.days
+#tratando os valores nulos caso alguma das variaveis usadas no calculo estivesse vazia
+df['tempo_confeccao_laudo'].fillna('-1', inplace=True)
+df['tempo_confeccao_laudo'] = df['tempo_confeccao_laudo'].astype('int64')
 
 
-#Tratando os valores nulos em masp e nmr_procedimento removendo as requisições que foram devolvidas
+#Tratando os valores nulos em masp e nmr_procedimento removendo as requisições que foram devolvidas e alterando o dtype para int
 df = df.dropna(subset=['masp_perito', 'nmr_procedimento'])
+df['masp_perito'] = df['masp_perito'].astype('int64')
+#df['masp_perito'] = df['masp_perito'].map(lambda x: str(x)[:-1])
 
 
-#Tratando os valores nulos em nmr_procedimento
-#df['nmr_procedimento'].fillna('devolvida', inplace=True)
+#Mudando o tipo de dado para inteiro
+df['nmr_procedimento'] = df['nmr_procedimento'].astype('int64')
 
+
+#Mudando o tipo de dado para inteiro e preenchendo os valores vazios com 0
+df['cod_modelo_laudo'] = df['cod_modelo_laudo'].fillna(0)
+df['cod_modelo_laudo'] = df['cod_modelo_laudo'].astype('int64')
+
+
+print(df.dtypes)
 
 
 #Criando a conexao ao Banco
