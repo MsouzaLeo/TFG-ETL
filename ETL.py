@@ -36,7 +36,7 @@ df['masp_perito'] = df.masp_perito.astype('string').str.replace('m', '')
 df['data_requisicao_pericia'] = pd.to_datetime(df['data_requisicao_pericia'].astype('datetime64').dt.strftime("%d/%m/%y %H:%M"))
 df['data_distribuicao_requisicao'] = pd.to_datetime(df['data_distribuicao_requisicao'].astype('datetime64').dt.strftime("%d/%m/%y %H:%M"))
 df['data_redistribuicao'] = pd.to_datetime(df['data_redistribuicao'].astype('datetime64').dt.strftime("%d/%m/%y %H:%M"))
-df['data_devolucao_requisicao'] = pd.to_datetime(df['data_devolucao_requisicao'].astype('datetime64').dt.strftime("%d/%m/%y %H:%M"))
+df['data_devolucao_requisicao'] = pd.to_datetime(df['data_devolucao_requisicao'].astype('datetime64[ns]').dt.strftime("%d/%m/%y %H:%M"))
 df['data_aceite_requisicao'] = pd.to_datetime(df['data_aceite_requisicao'].astype('datetime64').dt.strftime("%d/%m/%y %H:%M"))
 df['data_expedicao_laudo'] = pd.to_datetime(df['data_expedicao_laudo'].astype('datetime64').dt.strftime("%d/%m/%y %H:%M"))
 
