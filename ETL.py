@@ -9,7 +9,7 @@ arquivo = filedialog.askopenfilenames(title='Selecione a planilha')
 
 #print(arquivo[0])
 #Lendo o arquivo selecionado e transformando-o em um DataFrame
-IC_mes = pd.read_csv(arquivo[0], sep=';', encoding='cp1252')
+IC_mes = pd.read_csv(arquivo[0], sep=';', encoding='cp1252', low_memory=False)
 
 
 #Separando os dados dos Laudos para o Banco de Dados
@@ -65,7 +65,7 @@ df['cod_modelo_laudo'] = df['cod_modelo_laudo'].fillna(0)
 df['cod_modelo_laudo'] = df['cod_modelo_laudo'].astype('int64')
 
 
-print(df.dtypes)
+#print(df.dtypes)
 
 
 #Criando a conexao ao Banco
@@ -82,7 +82,7 @@ try:
 except ValueError as vx:
     print(vx)
 except Exception as ex:
-    print(ex)
+    print(ex.__cause__)
 else:
     print(f"A tabela {table_name} foi carregada com sucesso.")
 finally:
